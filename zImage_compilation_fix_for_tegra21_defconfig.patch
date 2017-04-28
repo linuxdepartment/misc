@@ -1,0 +1,31 @@
+commit e33b866bbbe3bc5c5dd266b9a83c693961e70c03
+Author: sreenad <s@s.com>
+Date:   Thu Apr 27 15:16:55 2017 +0530
+
+    zImage compilation fix for tegra21_defconfig
+
+diff --git a/kernel/display/drivers/video/tegra/dc/ext/dev.c b/kernel/display/drivers/video/tegra/dc/ext/dev.c
+index a6acb89..933c5d9 100644
+--- a/kernel/display/drivers/video/tegra/dc/ext/dev.c
++++ b/kernel/display/drivers/video/tegra/dc/ext/dev.c
+@@ -1148,7 +1148,6 @@ static int sanitize_flip_args(struct tegra_dc_ext_user *user,
+ {
+ 	int i, used_windows = 0;
+ 	struct tegra_dc *dc = user->ext->dc;
+-	int ret = 0;
+ 
+ 	if (win_num > DC_N_WINDOWS)
+ 		return -EINVAL;
+diff --git a/kernel/nvgpu/drivers/gpu/nvgpu/Makefile.nvgpu b/kernel/nvgpu/drivers/gpu/nvgpu/Makefile.nvgpu
+index b6420da..0253814 100644
+--- a/kernel/nvgpu/drivers/gpu/nvgpu/Makefile.nvgpu
++++ b/kernel/nvgpu/drivers/gpu/nvgpu/Makefile.nvgpu
+@@ -25,6 +25,8 @@ ccflags-y += -I$(srctree)/../nvgpu-t19x/include
+ ccflags-y += -I$(srctree)/../nvgpu-t19x/include/uapi
+ endif
+ 
++ccflags-y += -I./$(src)/
++
+ obj-$(CONFIG_GK20A) := nvgpu.o
+ 
+ nvgpu-y := \
